@@ -1,3 +1,6 @@
+%   Donald F. Specht. 1990. Probabilistic neural networks. Neural Netw. 3, 1 (January 1990), 109-118.
+%   http://dl.acm.org/citation.cfm?id=82709
+
 classdef PNN
     properties
         Size
