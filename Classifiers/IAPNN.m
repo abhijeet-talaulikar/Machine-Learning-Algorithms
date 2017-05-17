@@ -1,3 +1,7 @@
+%Source: B. Chandra and K. V. N. Babu, "An improved architecture for Probabilistic Neural Networks,"
+%The 2011 International Joint Conference on Neural Networks, San Jose, CA, 2011, pp. 919-924.
+%http://ieeexplore.ieee.org/document/6033320/
+
 classdef IAPNN
     properties
         Size
