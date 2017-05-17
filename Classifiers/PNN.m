@@ -12,20 +12,23 @@ classdef PNN
     end
     methods
         function clf = PNN(x_train,y_train,lambda)
-            clf.Size = size(x_train,1)
+            %Mean center and normalize the data
+            x_train = x_train - repmat(mean(x_train),size(x_train,1),1);
+            for i = 1:size(x_train,1)
+                x_train(i,:) = x_train(i,:)/norm(x_train(i,:));
+            end
+            
+            clf.Size = size(x_train,1);
             clf.Classes = unique(y_train);
             clf.x_Train = x_train;
             clf.y_Train = y_train;
             clf.lambda = lambda;
         end
         function y_pred = Predict(clf, x_test)
-            
-            %Mean center the data
-            data = [clf.x_Train;x_test];
-            data = data - repmat(mean(data),size(data,1),1);
-            
-            clf.x_Train = data(1:clf.Size,:);
-            x_test = data(clf.Size+1:end,:);
+            %Normalize the data
+            for i = 1:size(x_test,1)
+                x_test(i,:) = x_test(i,:)/norm(x_test(i,:));
+            end
             
             y_pred = zeros(size(x_test,1),1);
             for i = 1:size(x_test,1)
