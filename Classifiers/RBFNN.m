@@ -21,7 +21,7 @@ classdef RBFNN
             clf.RBFM = ones(clf.Size,clf.Size);
             for i = 1:clf.Size
                 for j = i+1:clf.Size
-                    clf.RBFM(i,j) = exp(-(pdist2(clf.x_Train(i),clf.x_Train(j))^2)/(2*clf.lambda^2));
+                    clf.RBFM(i,j) = exp(-(pdist2(clf.x_Train(i,:),clf.x_Train(j,:))^2)/(2*clf.lambda^2));
                     clf.RBFM(j,i) = clf.RBFM(i,j);
                 end
             end
@@ -40,7 +40,7 @@ classdef RBFNN
                 for j = 1:numel(clf.Classes)
                     distances = zeros(size(clf.Classes,1),1);
                     for k = 1:clf.Size
-                        distances(k) = exp(-(pdist2(x_test(i),clf.x_Train(k))^2)/(2*clf.lambda^2));
+                        distances(k) = exp(-(pdist2(x_test(i,:),clf.x_Train(k,:))^2)/(2*clf.lambda^2));
                     end
                     Class_Layer(j) = sum(distances.*clf.W(j));
                 end
