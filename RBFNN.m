@@ -1,3 +1,5 @@
+%Uses a one-pass algortihm (using Moore-Penrose Pseudoinverse) to set the output weights
+
 classdef RBFNN
     properties
         Size
