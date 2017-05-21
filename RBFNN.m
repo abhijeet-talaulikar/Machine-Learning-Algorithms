@@ -1,4 +1,5 @@
-%Uses a one-pass algortihm (using Moore-Penrose Pseudoinverse) to set the output weights
+% Uses a one-pass algortihm (using Moore-Penrose Pseudoinverse) to set the output weights
+% Multi-classs classifier
 
 classdef RBFNN
     properties
