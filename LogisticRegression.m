@@ -1,6 +1,6 @@
-%Using Log-Loss objective: Cost = t(-logy) + (1-t)(-log(1-y))
-%Stopping criteria is number of iterations
-%Batch Gradient Descent (can be made stochastic with a little change)
+%   Using Log-Loss objective: Cost = t(-logy) + (1-t)(-log(1-y))
+%   Stopping criteria is number of iterations
+%   Batch Gradient Descent (can be made stochastic with a little change)
 
 classdef LogisticRegression
     properties
