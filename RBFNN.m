@@ -45,7 +45,7 @@ classdef RBFNN
                     for k = 1:clf.Size
                         distances(k) = exp(-(pdist2(x_test(i,:),clf.x_Train(k,:))^2)/(2*clf.lambda^2));
                     end
-                    Class_Layer(j) = sum(distances.*clf.W(j));
+                    Class_Layer(j) = clf.W(j,:) * distances;
                 end
                 [~,id] = max(Class_Layer);
                 y_pred(i) = clf.Classes(id);
