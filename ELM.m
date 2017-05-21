@@ -1,3 +1,6 @@
+%   Binary classifier
+%   Takes input weights from user
+
 classdef ELM
     properties
         nSamples
