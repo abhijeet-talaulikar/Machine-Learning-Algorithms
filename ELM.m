@@ -1,4 +1,4 @@
-%   Binary classifier
+%   Binary classifier (0/1)
 %   Takes input weights from user
 
 classdef ELM
