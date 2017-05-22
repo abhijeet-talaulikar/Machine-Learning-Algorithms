@@ -1,3 +1,7 @@
+%   B. Chandra and K. V. N. Babu, "An improved architecture for Probabilistic Neural Networks,"
+%   The 2011 International Joint Conference on Neural Networks, San Jose, CA, 2011, pp. 919-924.
+%   http://ieeexplore.ieee.org/document/6033320/
+
 classdef IAPNN
     properties
         Size
@@ -41,7 +45,7 @@ classdef IAPNN
             for i = 1:size(x_test,1)
                 Class_Layer = zeros(size(clf.Classes,1),1);
                 for j = 1:numel(clf.Classes)
-                    Class_Layer(j) = sum(clf.Theta(j,:).*x_test(i));
+                    Class_Layer(j) = x_test(i,:)*clf.Theta(j,:)';
                 end
                 [~,id] = max(Class_Layer);
                 y_pred(i) = clf.Classes(id);
