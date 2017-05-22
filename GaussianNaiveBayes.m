@@ -1,3 +1,6 @@
+%   Takes real-valued variables as input
+%   Assumes each real-valued variable is normally distributed
+
 classdef GaussianNaiveBayes
     properties
         nSamples
