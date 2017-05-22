@@ -6,7 +6,6 @@ classdef ELM
         nSamples
         nFeatures
         Classes
-        Train
         lambda
         x_Train
         y_Train
