@@ -33,7 +33,7 @@ classdef PNN
                 for j = 1:numel(clf.Classes)
                     classSet = clf.x_Train(clf.y_Train == clf.Classes(j),:);
                     for k = 1:size(classSet,1)
-                        Class_Layer(j) = Class_Layer(j) + exp((sum(x_test(i).*classSet(k))-1)/(2*clf.lambda));
+                        Class_Layer(j) = Class_Layer(j) + exp(((x_test(i,:)*classSet(k,:)')-1)/(clf.lambda^2));
                     end
                     Class_Layer(j) = Class_Layer(j)/size(classSet,1);
                 end
