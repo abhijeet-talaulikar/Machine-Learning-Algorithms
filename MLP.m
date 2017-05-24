@@ -65,11 +65,14 @@ classdef MLP
                     end
                     
                     %Update weights
-                    for k = 1:numel(clf.hiddenLayers)
+                    for k = 1:numel(clf.hiddenLayers)+1
                         if k == 1; prev = clf.x_Train(j,:)';
                         else prev = val{k-1}(:);
                         end
-                        for l = 1:clf.hiddenLayers(k)
+                        if k == numel(clf.hiddenLayers)+1; nodes = numel(clf.Classes);
+                        else nodes = clf.hiddenLayers(k);
+                        end
+                        for l = 1:nodes
                             for m = 1:size(prev,1)
                                 clf.W{k}(l,m) = clf.W{k}(l,m) + clf.learningRate * delta{k}(l) * prev(m);
                             end
