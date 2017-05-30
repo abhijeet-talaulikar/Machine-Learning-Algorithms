@@ -1,5 +1,6 @@
 %   Multi-class classifier
 %   Log loss objective function
+%   Non-adaptive learning rate
 
 classdef MLP
     properties
