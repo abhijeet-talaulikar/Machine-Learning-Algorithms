@@ -24,10 +24,10 @@ classdef MLP
             clf.W = cell(1,numel(clf.hiddenLayers)+1);
             prev = clf.nFeatures;
             for i = 1:numel(clf.hiddenLayers)
-                clf.W{i} = 0.1 * randi(5,clf.hiddenLayers(i),prev);
+                clf.W{i} = [ones(clf.hiddenLayers(i),1) 0.1 * randi(10,clf.hiddenLayers(i),prev)];
                 prev = clf.hiddenLayers(i);
             end
-            clf.W{numel(clf.hiddenLayers)+1} = 0.1 * randi(5,numel(clf.Classes),prev);
+            clf.W{numel(clf.hiddenLayers)+1} = [ones(numel(clf.Classes),1) 0.1 * randi(10,numel(clf.Classes),prev)];
             
             %Train the network
             for i = 1:nIter
@@ -38,13 +38,13 @@ classdef MLP
                     for k = 1:numel(clf.hiddenLayers)
                         val{k} = zeros(clf.hiddenLayers(k),1);
                         for l = 1:clf.hiddenLayers(k)
-                            val{k}(l) = clf.sigmoid(prev * clf.W{k}(l,:)');
+                            val{k}(l) = clf.sigmoid([1.0 prev] * clf.W{k}(l,:)');
                         end
                         prev = val{k}(:)';
                     end
                     val{numel(clf.hiddenLayers)+1} = zeros(numel(clf.Classes),1);
                     for k = 1:numel(clf.Classes)
-                        val{numel(clf.hiddenLayers)+1}(k) = clf.sigmoid(prev * clf.W{numel(clf.hiddenLayers)+1}(k,:)');
+                        val{numel(clf.hiddenLayers)+1}(k) = clf.sigmoid([1.0 prev] * clf.W{numel(clf.hiddenLayers)+1}(k,:)');
                     end
                     
                     %Backpropagate through the network
@@ -66,8 +66,8 @@ classdef MLP
                     
                     %Update weights
                     for k = 1:numel(clf.hiddenLayers)+1
-                        if k == 1; prev = clf.x_Train(j,:)';
-                        else prev = val{k-1}(:);
+                        if k == 1; prev = [1.0 clf.x_Train(j,:)]';
+                        else prev = [1.0;val{k-1}(:)];
                         end
                         if k == numel(clf.hiddenLayers)+1; nodes = numel(clf.Classes);
                         else nodes = clf.hiddenLayers(k);
@@ -85,7 +85,7 @@ classdef MLP
             val = 1 / (1+exp(-x));
         end
         function val = derivative(clf,x)
-            val = x * (1.0 - x);
+            val = x * (1 - x);
         end
         function y_pred = Predict(clf, x_test)
             y_pred = zeros(size(x_test,1),1);
@@ -96,17 +96,16 @@ classdef MLP
                 for j = 1:numel(clf.hiddenLayers)
                     val{j} = zeros(clf.hiddenLayers(j),1);
                     for k = 1:clf.hiddenLayers(j)
-                        val{j}(k) = clf.sigmoid(prev * clf.W{j}(k,:)');
+                        val{j}(k) = clf.sigmoid([1.0 prev] * clf.W{j}(k,:)');
                     end
                     prev = val{j}(:)';
                 end
                 val{numel(clf.hiddenLayers)+1} = zeros(numel(clf.Classes),1);
                 for k = 1:numel(clf.Classes)
-                    val{numel(clf.hiddenLayers)+1}(k) = clf.sigmoid(prev * clf.W{numel(clf.hiddenLayers)+1}(k,:)');
+                    val{numel(clf.hiddenLayers)+1}(k) = clf.sigmoid([1.0 prev] * clf.W{numel(clf.hiddenLayers)+1}(k,:)');
                 end
                 [~,id] = max(val{numel(clf.hiddenLayers)+1});
                 y_pred(i) = clf.Classes(id);
-                val{numel(clf.hiddenLayers)+1}
             end
         end
     end
