@@ -57,7 +57,7 @@ classdef MLP
                     for l = 1:numel(clf.Classes)
                         expected = clf.y_Train(j) == clf.Classes(l);
                         output = val{numel(clf.hiddenLayers)+1}(l);
-                        delta{numel(clf.hiddenLayers)+1}(l) = (expected - output) * clf.derivative(output);
+                        delta{numel(clf.hiddenLayers)+1}(l) = output - expected;
                     end
                     for k = numel(clf.hiddenLayers):-1:1
                         delta{k} = zeros(clf.hiddenLayers(k),1);
