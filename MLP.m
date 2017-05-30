@@ -1,3 +1,6 @@
+%   Multi-class classifier
+%   Mean squares objective function
+
 classdef MLP
     properties
         nSamples
