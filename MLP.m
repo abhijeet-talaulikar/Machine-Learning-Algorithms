@@ -28,10 +28,12 @@ classdef MLP
             clf.W = cell(1,numel(clf.hiddenLayers)+1);
             prev = clf.nFeatures;
             for i = 1:numel(clf.hiddenLayers)
-                clf.W{i} = [ones(clf.hiddenLayers(i),1) 0.1 * randi(10,clf.hiddenLayers(i),prev)];
+                clf.W{i} = 0.001*randi(999,clf.hiddenLayers(i),prev) .* ((-1 * ones(clf.hiddenLayers(i),prev)).^randi(2,clf.hiddenLayers(i),prev));
+                clf.W{i} = [ones(clf.hiddenLayers(i),1) clf.W{i}];
                 prev = clf.hiddenLayers(i);
             end
-            clf.W{numel(clf.hiddenLayers)+1} = [ones(numel(clf.Classes),1) 0.1 * randi(10,numel(clf.Classes),prev)];
+            clf.W{numel(clf.hiddenLayers)+1} = 0.001*randi(999,numel(clf.Classes),prev) .* ((-1 * ones(numel(clf.Classes),prev)).^randi(2,numel(clf.Classes),prev));
+            clf.W{numel(clf.hiddenLayers)+1} = [ones(numel(clf.Classes),1) clf.W{numel(clf.hiddenLayers)+1}];
             
             %Train the network
             for i = 1:nIter
@@ -110,6 +112,7 @@ classdef MLP
                 end
                 [~,id] = max(val{numel(clf.hiddenLayers)+1});
                 y_pred(i) = clf.Classes(id);
+                val{numel(clf.hiddenLayers)+1}
             end
         end
     end
