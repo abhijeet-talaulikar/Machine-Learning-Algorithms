@@ -1,7 +1,7 @@
 %   Log loss objective function
 %   Non-adaptive learning rate
 %   Always scale your inputs to [0, 1] range when using sigmoid function
-%   It is advisable to use a low learning rate (for e.g 0.01) with high number of epochs
+%   It is advisable to use a low learning rate (for e.g 0.01) with high number of epochs/iterations
 
 classdef MLP
     properties
@@ -38,7 +38,7 @@ classdef MLP
             clf.W{numel(clf.hiddenLayers)+1} = [ones(numel(clf.Classes),1) clf.W{numel(clf.hiddenLayers)+1}];
             
             %Train the network
-            for i = 1:nIter
+            for i = 1:clf.nIter
                 for j = 1:clf.nSamples
                     %Feed forward through the network
                     val = cell(1,numel(clf.hiddenLayers)+1);
