@@ -1,4 +1,3 @@
-%   Multi-class classifier
 %   Log loss objective function
 %   Non-adaptive learning rate
 
@@ -24,7 +23,7 @@ classdef MLP
             clf.nIter = nIter;
             clf.learningRate = learningRate;
             
-            %Create the architecture
+            %Create the architecture with randomly initialized weights
             clf.hiddenLayers = hiddenLayers;
             clf.W = cell(1,numel(clf.hiddenLayers)+1);
             prev = clf.nFeatures;
