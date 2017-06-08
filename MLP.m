@@ -116,7 +116,6 @@ classdef MLP
                     [~,id] = max(val{numel(clf.hiddenLayers)+1});
                     y_pred(i) = clf.Classes(id);
                 end
-                val{numel(clf.hiddenLayers)+1}
             end
         end
     end
