@@ -1,4 +1,3 @@
-%   Multi-class classifier
 %   Log loss objective function
 %   Non-adaptive learning rate
 
@@ -18,6 +17,7 @@ classdef MLP
         function clf = MLP(x_train,y_train,hiddenLayers,nIter,learningRate)            
             [clf.nSamples,clf.nFeatures] = size(x_train);
             clf.Classes = unique(y_train);
+            if numel(clf.Classes) == 2; clf.Classes = [1];end %Binary class problem has only one output node
             clf.x_Train = x_train;
             clf.y_Train = y_train;
             clf.nIter = nIter;
@@ -110,8 +110,12 @@ classdef MLP
                 for k = 1:numel(clf.Classes)
                     val{numel(clf.hiddenLayers)+1}(k) = clf.sigmoid([1.0 prev] * clf.W{numel(clf.hiddenLayers)+1}(k,:)');
                 end
-                [~,id] = max(val{numel(clf.hiddenLayers)+1});
-                y_pred(i) = clf.Classes(id);
+                if numel(clf.Classes) == 1
+                    y_pred(i) = (val{numel(clf.hiddenLayers)+1} >= 0.5);
+                else
+                    [~,id] = max(val{numel(clf.hiddenLayers)+1});
+                    y_pred(i) = clf.Classes(id);
+                end
                 val{numel(clf.hiddenLayers)+1}
             end
         end
