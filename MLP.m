@@ -1,5 +1,7 @@
 %   Log loss objective function
 %   Non-adaptive learning rate
+%   Always scale your inputs to [0, 1] range when using sigmoid function
+%   It is advisable to use a low learning rate (for e.g 0.01) with high number of epochs
 
 classdef MLP
     properties
