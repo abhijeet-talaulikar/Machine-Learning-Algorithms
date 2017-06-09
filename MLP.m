@@ -114,6 +114,8 @@ classdef MLP
                 for k = 1:numel(clf.Classes)
                     val{numel(clf.hiddenLayers)+1}(k) = clf.sigmoid([1.0 prev] * clf.W{numel(clf.hiddenLayers)+1}(k,:)');
                 end
+                
+                %Predict
                 if numel(clf.Classes) == 1
                     y_pred(i) = (val{numel(clf.hiddenLayers)+1} >= 0.5);
                 else
