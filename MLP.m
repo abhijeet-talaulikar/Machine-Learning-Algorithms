@@ -1,3 +1,4 @@
+%   Uses sigmoid activation function in all layers
 %   Log loss objective function
 %   Non-adaptive learning rate
 %   Always scale your inputs to [0, 1] range when using sigmoid function
