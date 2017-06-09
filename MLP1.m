@@ -1,9 +1,9 @@
-%   Uses RELU in hidden layers and Softmax in output layer
+%   Uses Leaky RELU in hidden layers and Softmax in output layer
 %   Log loss objective function
 %   Non-adaptive learning rate
 %   Always scale your inputs to [0, 1] range
 %   It is advisable to use a low learning rate (for e.g 0.01) with high number of epochs/iterations
-%   Solves the vanishing gradients problem by using RELU in hidden layers, for deeper learning.
+%   Solves the vanishing gradients problem by using Leaky RELU in hidden layers, for deeper learning.
 
 classdef MLP1
     properties
@@ -98,10 +98,12 @@ classdef MLP1
             val = exp(numerator) / sum(exp(array));
         end
         function val = RELU(clf, x)
-            val = max(0, x);
+            val = max(0.01 * x, x);
         end
         function val = derivative(clf,x)
-            val = (x ~= 0);
+            if x == 0; val = 0.01;
+            else val = 1;
+            end
         end
         function y_pred = Predict(clf, x_test)
             y_pred = zeros(size(x_test,1),1);
